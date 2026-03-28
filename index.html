@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raden Ali — UGC Creator</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',system-ui,sans-serif; background:#faf9f6; color:#111; overflow-x:hidden; }
+
+:root {
+  --amber:#f59e0b; --amber-dark:#d97706; --amber-light:rgba(245,158,11,.08);
+  --bg:#faf9f6; --bg2:#f3f1ec; --white:#fff;
+  --text:#111; --muted:#666; --border:#e5e2da;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes slideR   { from{opacity:0;transform:translateX(-28px)} to{opacity:1;transform:translateX(0)} }
+@keyframes slideL   { from{opacity:0;transform:translateX(28px)} to{opacity:1;transform:translateX(0)} }
+@keyframes scaleIn  { from{opacity:0;transform:scale(.93)} to{opacity:1;transform:scale(1)} }
+@keyframes mscroll  { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@keyframes pulse    { 0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.4)} 50%{box-shadow:0 0 0 12px rgba(245,158,11,0)} }
+@keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+
+.hero-text       { animation:slideR .9s cubic-bezier(.22,1,.36,1) both; }
+.hero-photo-wrap { animation:slideL .9s cubic-bezier(.22,1,.36,1) .12s both; }
+
+/* ── SCROLL REVEAL ── */
+.reveal       { opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
+.reveal.in    { opacity:1; transform:translateY(0); }
+.rl           { opacity:0; transform:translateX(-22px); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
+.rl.in        { opacity:1; transform:translateX(0); }
+.rr           { opacity:0; transform:translateX(22px); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
+.rr.in        { opacity:1; transform:translateX(0); }
+.s1{transition-delay:.05s} .s2{transition-delay:.12s} .s3{transition-delay:.19s} .s4{transition-delay:.26s}
+
+/* ── NAV ── */
+nav {
+  position:fixed; inset:0 0 auto 0; z-index:999;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem 5vw;
+  background:rgba(250,249,246,.96); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  animation:fadeIn .5s ease both;
+}
+.logo { font-family:'Fraunces',serif; font-size:1.35rem; font-weight:900; color:var(--text); text-decoration:none; }
+.logo span { color:var(--amber); }
+.nav-links { display:flex; list-style:none; gap:2rem; }
+.nav-links a { text-decoration:none; color:var(--muted); font-size:.88rem; font-weight:500; transition:color .2s; position:relative; }
+.nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:2px; background:var(--amber); border-radius:2px; transition:width .25s; }
+.nav-links a:hover { color:var(--text); }
+.nav-links a:hover::after { width:100%; }
+.btn-nav { background:var(--amber); color:var(--text); font-weight:700; font-size:.88rem; padding:.55rem 1.3rem; border-radius:999px; text-decoration:none; transition:background .2s,transform .15s,box-shadow .2s; }
+.btn-nav:hover { background:var(--amber-dark); transform:translateY(-2px); box-shadow:0 6px 20px rgba(245,158,11,.35); }
+
+/* ── HERO ── */
+#hero {
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:8rem 4vw 5rem;
+  gap:clamp(1rem,2vw,1.75rem);
+  max-width:1120px;
+  margin:0 auto;
+}
+.hero-text { flex:1 1 420px; min-width:0; max-width:540px; }
+.hero-eyebrow { display:inline-block; font-size:.78rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); margin-bottom:1.4rem; }
+.hero-title { font-family:'Fraunces',serif; font-size:clamp(3.4rem,6.2vw,6.1rem); font-weight:900; line-height:1.02; color:var(--text); margin-bottom:1.4rem; letter-spacing:-.02em; }
+.hero-title em { font-style:italic; color:var(--amber); display:inline-block; animation:float 4s ease-in-out 1s infinite; }
+.hero-sub { font-size:1.12rem; color:var(--muted); line-height:1.78; max-width:520px; margin-bottom:2.2rem; }
+.hero-btns { display:flex; gap:.85rem; flex-wrap:wrap; margin-bottom:2.2rem; }
+.btn-primary { display:inline-block; background:var(--amber); color:var(--text); font-weight:700; font-size:.95rem; padding:.82rem 2rem; border-radius:999px; text-decoration:none; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .2s,transform .15s,box-shadow .2s; }
+.btn-primary:hover { background:var(--amber-dark); transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,158,11,.35); }
+.btn-outline { display:inline-block; background:transparent; color:var(--text); font-weight:600; font-size:.95rem; padding:.82rem 2rem; border-radius:999px; border:1.5px solid var(--border); text-decoration:none; transition:border-color .2s,transform .15s,background .2s,color .2s; }
+.btn-outline:hover { border-color:var(--text); transform:translateY(-2px); background:var(--text); color:var(--white); }
+.hero-socials { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
+.hero-socials a { display:flex; align-items:center; gap:.45rem; font-size:.83rem; color:var(--muted); text-decoration:none; transition:color .2s,transform .2s; }
+.hero-socials a:hover { color:var(--amber); transform:translateY(-1px); }
+.hero-socials svg { width:16px; height:16px; fill:currentColor; flex-shrink:0; }
+
+/* ── HERO CARD ── */
+.hero-photo-wrap { flex:0 0 min(440px, 44vw); display:flex; justify-content:center; align-items:center; }
+.hero-card {
+  width:min(430px, 100%);
+  background:var(--white);
+  border-radius:26px;
+  border:1px solid var(--border);
+  box-shadow:0 40px 100px rgba(0,0,0,.12), 0 4px 16px rgba(0,0,0,.04);
+  overflow:hidden;
+  animation:float 6s ease-in-out 1.5s infinite;
+  transition:transform .3s,box-shadow .3s;
+}
+.hero-card:hover { transform:translateY(-10px) !important; box-shadow:0 56px 120px rgba(0,0,0,.16); animation-play-state:paused; }
+.hero-card-img {
+  width:100%; height:min(500px, 52vh);
+  background:linear-gradient(160deg,#f0ede4,#e4dfcf);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:1rem; border-bottom:1px solid var(--border); overflow:hidden;
+  position:relative;
+}
+.hero-card-img::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at 70% 30%, rgba(245,158,11,.1), transparent 60%);
+}
+.hero-card-img img { width:100%; height:100%; object-fit:cover; display:block; }
+.hero-avatar {
+  width:100px; height:100px; border-radius:50%; background:var(--amber);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Fraunces',serif; font-size:2.4rem; font-weight:900; color:var(--text);
+  animation:pulse 2.5s ease-in-out infinite;
+  position:relative; z-index:1;
+}
+.photo-note { font-size:.72rem; color:var(--muted); text-align:center; padding:0 1.5rem; line-height:1.6; position:relative; z-index:1; }
+.hero-card-info { padding:1.4rem 1.6rem; }
+.hero-card-name { font-family:'Fraunces',serif; font-size:1.2rem; font-weight:900; color:var(--text); margin-bottom:.25rem; }
+.hero-card-role { font-size:.8rem; color:var(--muted); font-weight:500; }
+.hero-card-bottom { display:flex; align-items:center; justify-content:space-between; margin-top:.8rem; }
+.hero-card-badge { background:rgba(245,158,11,.1); color:var(--amber-dark); font-size:.72rem; font-weight:700; padding:.28rem .75rem; border-radius:999px; }
+.hero-card-loc { font-size:.72rem; color:var(--muted); }
+
+/* ── BRANDS SECTION ── */
+#brands {
+  background: var(--text);
+  padding: 1.8rem 0;
+  overflow: hidden;
+  position: relative;
+}
+.brands-label {
+  text-align: center;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.28);
+  margin-bottom: 1.1rem;
+}
+.marquee-outer {
+  position: relative;
+  overflow: hidden;
+}
+.marquee-outer::before,
+.marquee-outer::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 110px;
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-outer::before { left: 0;  background: linear-gradient(to right, var(--text), transparent); }
+.marquee-outer::after  { right: 0; background: linear-gradient(to left,  var(--text), transparent); }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: mscroll 30s linear infinite;
+}
+#brands:hover .marquee-track { animation-play-state: paused; }
+
+/* regular item */
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: 0 2rem;
+  white-space: nowrap;
+  color: rgba(255,255,255,.55);
+  font-size: .88rem;
+  font-weight: 600;
+  transition: color .2s;
+}
+.marquee-item::after {
+  content: '·';
+  color: rgba(255,255,255,.18);
+  font-size: 1.2rem;
+  margin-left: 1.8rem;
+}
+.marquee-item:hover { color: rgba(255,255,255,.85); }
+
+/* logo chip */
+.m-chip {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.m-chip img { width: 100%; height: 100%; object-fit: contain; padding: 3px; }
+.m-chip span { font-size: .55rem; font-weight: 900; color: rgba(255,255,255,.45); }
+
+/* featured item — Solvely AI */
+.marquee-item.is-featured {
+  color: rgba(255,255,255,.92);
+  background: rgba(245,158,11,.07);
+  border-radius: 999px;
+  padding: .35rem 1.2rem .35rem .55rem;
+  margin: 0 1rem;
+  border: 1px solid rgba(245,158,11,.2);
+}
+.marquee-item.is-featured::after { color: rgba(245,158,11,.3); }
+.marquee-item.is-featured .m-chip {
+  background: rgba(245,158,11,.15);
+  border-color: rgba(245,158,11,.3);
+}
+.marquee-item.is-featured .m-chip span { color: var(--amber); }
+.featured-pill {
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: rgba(245,158,11,.15);
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  margin-left: .2rem;
+}
+
+/* ── ABOUT ── */
+#about {
+  background:var(--bg); display:flex; align-items:center; justify-content:center;
+  gap:clamp(1.75rem,3vw,2.75rem);
+  padding:7.5rem 5vw;
+  max-width:1100px;
+  margin:0 auto;
+}
+.about-photo { flex:0 0 auto; display:flex; justify-content:center; }
+.about-circle { width:min(300px, 38vw); height:min(300px, 38vw); border-radius:50%; background:linear-gradient(145deg,#f3f1ec,#e8e4d8); border:3px solid var(--amber); box-shadow:0 0 0 7px rgba(245,158,11,.08); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem; text-align:center; padding:1.5rem; overflow:hidden; transition:box-shadow .3s,transform .3s; }
+.about-circle:hover { box-shadow:0 0 0 12px rgba(245,158,11,.1); transform:scale(1.02); }
+.about-circle img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.about-text { flex:1 1 420px; max-width:620px; min-width:0; }
+#about .eyebrow { font-size:.82rem; margin-bottom:1rem; }
+#about .section-title { font-size:clamp(2.4rem,4.2vw,3.5rem); margin-bottom:1.35rem; }
+#about .section-body { font-size:1.12rem; line-height:1.85; margin-bottom:1.1rem; }
+.eyebrow { display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--amber); margin-bottom:.9rem; }
+.section-title { font-family:'Fraunces',serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:900; line-height:1.1; color:var(--text); margin-bottom:1.2rem; letter-spacing:-.02em; }
+.section-body { font-size:1rem; color:var(--muted); line-height:1.8; margin-bottom:1rem; }
+
+/* ── SERVICES ── */
+#services { background:var(--bg); padding:7rem 5vw; }
+.section-header { text-align:center; margin-bottom:3rem; }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+.service-card { background:var(--white); border:1px solid var(--border); border-radius:16px; padding:2rem 1.6rem; transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s,border-color .25s; }
+.service-card:hover { transform:translateY(-6px); box-shadow:0 20px 48px rgba(0,0,0,.07); border-color:var(--amber); }
+.service-icon { font-size:1.9rem; margin-bottom:1rem; display:block; transition:transform .3s; }
+.service-card:hover .service-icon { transform:scale(1.15) rotate(-5deg); }
+.service-title { font-family:'Fraunces',serif; font-size:1.05rem; font-weight:700; color:var(--text); margin-bottom:.55rem; }
+.service-desc { font-size:.85rem; color:var(--muted); line-height:1.65; }
+
+/* ── PORTFOLIO ── */
+#work { background:var(--white); padding:7rem 5vw; }
+.tabs { display:flex; justify-content:center; gap:.5rem; margin-bottom:2.8rem; flex-wrap:wrap; }
+.tab { font-family:'DM Sans',sans-serif; font-size:.88rem; font-weight:600; padding:.55rem 1.4rem; border-radius:999px; border:1.5px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all .2s; }
+.tab.active { background:var(--amber); border-color:var(--amber); color:var(--text); }
+.tab:hover:not(.active) { border-color:var(--text); color:var(--text); }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; animation:fadeUp .35s ease both; }
+.video-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+.video-thumb { aspect-ratio:9/16; border-radius:14px; background:var(--bg2); border:1.5px dashed var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.7rem; color:var(--muted); font-size:.78rem; text-align:center; padding:1rem; margin-bottom:.75rem; transition:border-color .2s,transform .25s,box-shadow .25s; text-decoration:none; }
+.video-thumb:hover { border-color:var(--amber); transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.07); }
+.play-btn { width:44px; height:44px; border-radius:50%; background:var(--amber); display:flex; align-items:center; justify-content:center; color:var(--text); font-size:.9rem; flex-shrink:0; transition:transform .2s,box-shadow .2s; }
+.video-thumb:hover .play-btn { transform:scale(1.1); box-shadow:0 4px 16px rgba(245,158,11,.4); }
+.video-name { font-size:.88rem; font-weight:600; color:var(--text); margin-bottom:.25rem; }
+.video-tag { display:inline-block; font-size:.7rem; font-weight:700; padding:.22rem .65rem; background:rgba(245,158,11,.1); color:var(--amber-dark); border-radius:999px; }
+
+/* ── STATS ── */
+#stats { background:var(--bg2); display:flex; justify-content:center; padding:5rem 5vw; }
+.stat { text-align:center; flex:1; max-width:260px; padding:0 2rem; position:relative; }
+.stat + .stat::before { content:''; position:absolute; left:0; top:15%; bottom:15%; width:1px; background:var(--border); }
+.stat-num { font-family:'Fraunces',serif; font-size:3.2rem; font-weight:900; color:var(--text); line-height:1; margin-bottom:.4rem; transition:color .2s; }
+.stat:hover .stat-num { color:var(--amber); }
+.stat-num sup { color:var(--amber); font-size:1.6rem; vertical-align:super; }
+.stat-label { font-size:.82rem; color:var(--muted); font-weight:600; line-height:1.5; }
+.stat-desc { font-size:.72rem; color:#aaa; margin-top:.3rem; line-height:1.4; }
+
+/* ── CONTACT (photo | content | photo) ── */
+#contact { background:var(--bg2); padding:8.5rem 4vw; }
+.contact-inner {
+  display:flex; align-items:flex-start; justify-content:center;
+  gap:clamp(1.25rem,2.5vw,2rem);
+  max-width:1280px;
+  margin:0 auto;
+}
+.contact-side { flex:0 0 auto; display:flex; flex-direction:column; align-items:center; padding-top:2.5rem; }
+.contact-side-left { order:0; }
+.contact-center { flex:1 1 420px; max-width:620px; min-width:0; order:1; text-align:center; display:flex; flex-direction:column; align-items:center; }
+.contact-side-right { order:2; }
+.contact-title {
+  font-family:'Fraunces',serif;
+  font-size:clamp(3.2rem,5.8vw,5.25rem);
+  font-weight:900; line-height:1.0;
+  margin-bottom:1.5rem; letter-spacing:-.03em;
+}
+.contact-title em { font-style:italic; color:var(--amber); }
+.contact-desc { font-size:1.12rem; color:var(--muted); line-height:1.82; max-width:520px; margin-bottom:2rem; }
+
+.contact-options { display:grid; grid-template-columns:1fr 1fr; gap:.85rem; width:100%; margin-bottom:2rem; }
+.contact-option {
+  background:var(--white); border:1px solid var(--border); border-radius:14px;
+  padding:1.2rem 1.3rem; text-decoration:none;
+  display:flex; align-items:center; gap:.85rem;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+}
+.contact-option:hover { border-color:var(--amber); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.06); }
+.contact-option-icon { width:42px; height:42px; border-radius:50%; background:var(--bg); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background .2s,border-color .2s; }
+.contact-option:hover .contact-option-icon { background:rgba(245,158,11,.1); border-color:var(--amber); }
+.contact-option-icon svg { width:17px; height:17px; fill:var(--muted); transition:fill .2s; }
+.contact-option:hover .contact-option-icon svg { fill:var(--amber); }
+.contact-option-text strong { display:block; font-size:.92rem; font-weight:700; color:var(--text); margin-bottom:.1rem; }
+.contact-option-text span { font-size:.8rem; color:var(--muted); }
+
+.contact-cta-wrap { display:flex; flex-direction:column; align-items:center; gap:.85rem; }
+.contact-cta-sub { font-size:.9rem; color:var(--muted); }
+
+.contact-photo-box {
+  width:min(260px, 24vw); height:min(330px, 38vh);
+  min-width:200px;
+  border-radius:20px; background:var(--white);
+  border:1px solid var(--border);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.5rem; font-size:.75rem; color:var(--muted); text-align:center; padding:0;
+  font-weight:500; overflow:hidden; transition:transform .25s,box-shadow .25s;
+  box-shadow:0 12px 40px rgba(0,0,0,.08);
+}
+.contact-photo-box:hover { transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,.12); }
+.contact-photo-box img { width:100%; height:100%; object-fit:cover; border-radius:16px; }
+
+/* ── FOOTER ── */
+footer { background:var(--text); color:rgba(255,255,255,.35); padding:1.5rem 5vw; font-size:.8rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
+footer a { color:var(--amber); text-decoration:none; transition:opacity .2s; }
+footer a:hover { opacity:.8; }
+.admin-trigger { background:none; border:none; color:rgba(255,255,255,.15); font-size:.7rem; cursor:pointer; font-family:'DM Sans',sans-serif; transition:color .2s; }
+.admin-trigger:hover { color:var(--amber); }
+
+/* ── VIDEO LIGHTBOX ── */
+#video-lightbox { display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,.92); align-items:center; justify-content:center; }
+#video-lightbox.open { display:flex; animation:fadeIn .2s ease both; }
+#video-lightbox button { position:absolute; top:1.5rem; right:1.5rem; background:rgba(255,255,255,.12); border:none; color:white; width:42px; height:42px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; z-index:2; }
+#video-lightbox button:hover { background:rgba(255,255,255,.25); }
+#lb-video { max-width:92vw; max-height:88vh; border-radius:16px; box-shadow:0 32px 80px rgba(0,0,0,.6); }
+
+/* YouTube thumbnail card */
+.yt-embed-wrap { position:relative; cursor:pointer; padding:0; overflow:hidden; border-style:solid; border-color:var(--border); }
+.yt-embed-wrap:hover { border-color:var(--amber); }
+.yt-thumb { width:100%; height:100%; object-fit:cover; display:block; }
+.video-play-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.28); transition:background .2s; }
+.yt-embed-wrap:hover .video-play-overlay { background:rgba(0,0,0,.48); }
+.yt-play { background:var(--amber); }
+.yt-embed-wrap:hover .yt-play { transform:scale(1.12); box-shadow:0 4px 16px rgba(245,158,11,.5); }
+
+/* Streamable preview card */
+.stream-preview { border-color:var(--border); }
+.stream-preview:hover { border-color:var(--amber); }
+.stream-bg {
+  width:100%; height:100%;
+  background:linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.stream-bg::before {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(circle at 50% 50%, rgba(245,158,11,.08) 0%, transparent 70%);
+}
+.stream-logo { position:relative; z-index:1; }
+.stream-play {
+  background:var(--amber);
+  width:52px; height:52px;
+  box-shadow:0 0 0 8px rgba(245,158,11,.15);
+}
+.stream-preview:hover .stream-play {
+  transform:scale(1.12);
+  box-shadow:0 0 0 12px rgba(245,158,11,.2), 0 4px 20px rgba(245,158,11,.5);
+}
+
+/* local file card */
+.video-has-file { position:relative; cursor:pointer; border-style:solid; border-color:var(--amber); padding:0; overflow:hidden; }
+.video-preview { width:100%; height:100%; object-fit:cover; display:block; }
+.video-has-file:hover .video-play-overlay { background:rgba(0,0,0,.45); }
+
+/* ── ADMIN ── */
+#admin-overlay { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); align-items:center; justify-content:center; }
+#admin-overlay.open { display:flex; animation:fadeIn .2s ease both; }
+#admin-panel { background:var(--white); border-radius:20px; width:92vw; max-width:760px; max-height:90vh; display:flex; flex-direction:column; box-shadow:0 32px 80px rgba(0,0,0,.25); overflow:hidden; animation:scaleIn .25s ease both; }
+.admin-header { display:flex; align-items:center; justify-content:space-between; padding:1.4rem 1.8rem; border-bottom:1px solid var(--border); flex-shrink:0; }
+.admin-header h2 { font-family:'Fraunces',serif; font-size:1.3rem; font-weight:900; }
+.admin-header h2 span { color:var(--amber); }
+.admin-close { background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--muted); transition:color .2s,transform .2s; }
+.admin-close:hover { color:var(--text); transform:rotate(90deg); }
+.admin-body { overflow-y:auto; padding:1.5rem 1.8rem; flex:1; }
+.admin-tabs { display:flex; gap:.4rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+.admin-tab { font-size:.8rem; font-weight:600; padding:.4rem 1rem; border-radius:999px; border:1.5px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all .2s; font-family:'DM Sans',sans-serif; }
+.admin-tab.active { background:var(--amber); border-color:var(--amber); color:var(--text); }
+.admin-section { display:none; }
+.admin-section.active { display:block; animation:fadeUp .3s ease both; }
+.admin-group { margin-bottom:1.4rem; }
+.admin-group label { display:block; font-size:.78rem; font-weight:700; color:var(--text); margin-bottom:.4rem; text-transform:uppercase; letter-spacing:.06em; }
+.admin-group input,.admin-group textarea { width:100%; padding:.6rem .85rem; border-radius:9px; border:1.5px solid var(--border); font-family:'DM Sans',sans-serif; font-size:.9rem; color:var(--text); background:var(--bg); transition:border-color .2s; outline:none; }
+.admin-group input:focus,.admin-group textarea:focus { border-color:var(--amber); }
+.admin-group textarea { resize:vertical; min-height:70px; }
+.admin-row { display:grid; grid-template-columns:1fr 1fr; gap:.85rem; }
+.admin-row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.85rem; }
+.admin-brand-row { display:grid; grid-template-columns:70px 1fr 1fr; gap:.75rem; align-items:center; margin-bottom:.85rem; padding:.85rem; background:var(--bg); border-radius:10px; border:1px solid var(--border); }
+.admin-brand-preview { width:44px; height:44px; border-radius:8px; background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.25); display:flex; align-items:center; justify-content:center; font-size:.65rem; font-weight:800; color:var(--amber); overflow:hidden; }
+.admin-brand-preview img { width:100%; height:100%; object-fit:contain; padding:4px; }
+.admin-brand-inputs { display:flex; flex-direction:column; gap:.4rem; }
+.admin-footer { padding:1.2rem 1.8rem; border-top:1px solid var(--border); display:flex; gap:.75rem; justify-content:flex-end; flex-shrink:0; }
+.btn-admin-apply { background:var(--amber); color:var(--text); font-weight:700; font-size:.88rem; padding:.6rem 1.5rem; border-radius:999px; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .2s,transform .15s; }
+.btn-admin-apply:hover { background:var(--amber-dark); transform:translateY(-1px); }
+.btn-admin-export { background:var(--text); color:white; font-weight:700; font-size:.88rem; padding:.6rem 1.5rem; border-radius:999px; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .2s,transform .15s; }
+.btn-admin-export:hover { background:#333; transform:translateY(-1px); }
+.admin-note { font-size:.76rem; color:var(--muted); margin-bottom:1.2rem; line-height:1.6; background:rgba(245,158,11,.07); padding:.75rem 1rem; border-radius:8px; border-left:3px solid var(--amber); }
+.video-admin-card { background:var(--bg); border-radius:10px; padding:.85rem; border:1px solid var(--border); margin-bottom:.75rem; }
+.video-admin-card .va-row { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-bottom:.5rem; }
+.video-admin-card label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); display:block; margin-bottom:.25rem; }
+.video-admin-card input { width:100%; padding:.5rem .7rem; border-radius:7px; border:1.5px solid var(--border); font-family:'DM Sans',sans-serif; font-size:.84rem; background:white; outline:none; transition:border-color .2s; }
+.video-admin-card input:focus { border-color:var(--amber); }
+.section-divider { font-family:'Fraunces',serif; font-size:.95rem; font-weight:700; color:var(--text); margin:1.2rem 0 .8rem; padding-bottom:.4rem; border-bottom:2px solid var(--amber); display:inline-block; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:1000px) { .brands-grid { grid-template-columns:repeat(4,1fr); } }
+@media (max-width:900px) {
+  nav { padding:1rem 5vw; }
+  .nav-links { display:none; }
+  #hero { flex-direction:column; padding:7rem 5vw 4rem; text-align:center; max-width:none; }
+  .hero-text { max-width:none; }
+  .hero-photo-wrap { order:-1; flex:none; width:100%; }
+  .hero-card { width:min(360px, 92vw); }
+  .hero-card-img { height:min(420px, 48vh); }
+  .hero-btns { justify-content:center; }
+  .hero-socials { justify-content:center; }
+  .brands-grid { grid-template-columns:repeat(3,1fr); }
+  #about { flex-direction:column; padding:4rem 5vw; text-align:center; max-width:none; }
+  .about-photo { order:-1; }
+  .about-circle { width:min(260px, 72vw); height:min(260px, 72vw); }
+  .about-text { max-width:100%; }
+  .grid-4 { grid-template-columns:1fr 1fr; }
+  .video-grid { grid-template-columns:1fr 1fr; }
+  #stats { flex-wrap:wrap; gap:2rem; }
+  .stat + .stat::before { display:none; }
+  .contact-inner { flex-direction:row; flex-wrap:wrap; justify-content:center; gap:1.75rem; }
+  .contact-center { order:0; flex:1 1 100%; width:100%; max-width:560px; }
+  .contact-side { padding-top:0; flex:1 1 calc(50% - 1rem); max-width:calc(50% - 0.5rem); justify-content:center; }
+  .contact-side-left { order:1; }
+  .contact-side-right { order:2; }
+  .contact-options { grid-template-columns:1fr; }
+  .contact-side .contact-photo-box { width:100%; max-width:280px; height:min(340px, 42vh); margin:0 auto; }
+  .admin-row,.admin-row-3 { grid-template-columns:1fr; }
+  .admin-brand-row { grid-template-columns:60px 1fr; }
+}
+@media (max-width:600px) {
+  .brands-grid { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- SVG ICONS -->
+<svg style="display:none">
+  <symbol id="icon-instagram" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol>
+  <symbol id="icon-tiktok" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></symbol>
+  <symbol id="icon-email" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></symbol>
+</svg>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">raden<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a id="nav-cta" href="https://calendly.com/radenali-ugc/ugc-call-raden-ali" target="_blank" class="btn-nav">Let's Talk</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <span class="hero-eyebrow" id="hero-eyebrow">UGC Creator &nbsp;·&nbsp; Short-Form Content</span>
+    <h1 class="hero-title">I make content<br>that <em>converts.</em></h1>
+    <p class="hero-sub" id="hero-sub">Hi, I'm Raden Ali — a content creator based in San Diego, CA. I partner with brands to produce short-form videos that feel real, move product, and actually perform.</p>
+    <div class="hero-btns">
+      <a href="#work" class="btn-primary">See My Work</a>
+      <a href="#contact" class="btn-outline">Work With Me</a>
+    </div>
+    <div class="hero-socials">
+      <a href="https://instagram.com/itsradenali" target="_blank"><svg><use href="#icon-instagram"/></svg>@itsradenali</a>
+      <a href="https://tiktok.com/@itsradenali" target="_blank"><svg><use href="#icon-tiktok"/></svg>@itsradenali</a>
+      <a href="mailto:radenali.ugc@gmail.com"><svg><use href="#icon-email"/></svg>radenali.ugc@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="hero-photo-wrap">
+    <div class="hero-card">
+      <div class="hero-card-img" id="hero-photo-wrap">
+        <img src="https://i.imgur.com/TKSqTEZ.jpeg" alt="" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div class="hero-card-info">
+        <div class="hero-card-name">Raden Ali</div>
+        <div class="hero-card-role">UGC Creator &nbsp;·&nbsp; Short-Form Video</div>
+        <div class="hero-card-bottom">
+          <span class="hero-card-badge">Available for Partnerships</span>
+          <span class="hero-card-loc">📍 San Diego, CA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="brands">
+  <div class="brands-label">Trusted by</div>
+  <div class="marquee-outer">
+    <div class="marquee-track" id="marquee-track"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-photo rl">
+    <div class="about-circle" id="about-circle-wrap">
+      <img src="https://i.imgur.com/Ziu9Tdo.jpeg" alt="">
+    </div>
+  </div>
+  <div class="about-text rr">
+    <span class="eyebrow">About</span>
+    <h2 class="section-title">Who I am.</h2>
+    <p class="section-body" id="about-p1">I'm a 17-year-old Indonesian-Mexican Gen-Z creator based in San Diego, CA. I partner with brands to make short-form content that actually performs — built for audiences that are students, builders, and digital natives.</p>
+    <p class="section-body" id="about-p2">I blend authenticity with strategy to create content audiences actually trust.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <span class="eyebrow">Services</span>
+    <h2 class="section-title">What I create.</h2>
+  </div>
+  <div class="grid-4">
+    <div class="service-card reveal s1"><span class="service-icon">🎬</span><div class="service-title">Short-form TikTok & Reels</div><p class="service-desc">Scroll-stopping vertical video optimized for reach and retention.</p></div>
+    <div class="service-card reveal s2"><span class="service-icon">🎙️</span><div class="service-title">Talking-Head Demos</div><p class="service-desc">Authentic product walk-throughs that build trust fast.</p></div>
+    <div class="service-card reveal s3"><span class="service-icon">⚡</span><div class="service-title">Problem → Solution Videos</div><p class="service-desc">Narrative content that positions your product as the answer.</p></div>
+    <div class="service-card reveal s4"><span class="service-icon">🎯</span><div class="service-title">Paid & Organic Ad Creatives</div><p class="service-desc">Performance-ready assets built for clicks and conversions.</p></div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="work">
+  <div class="section-header reveal">
+    <span class="eyebrow">Portfolio</span>
+    <h2 class="section-title">Selected work.</h2>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('tech',this)">Tech & AI</button>
+    <button class="tab" onclick="showTab('study',this)">Study Apps</button>
+    <button class="tab" onclick="showTab('finance',this)">Finance</button>
+    <button class="tab" onclick="showTab('personal',this)">Personal Brand</button>
+  </div>
+  <div class="tab-pane active" id="pane-tech"><div class="video-grid" id="grid-tech"></div></div>
+  <div class="tab-pane" id="pane-study"><div class="video-grid" id="grid-study"></div></div>
+  <div class="tab-pane" id="pane-finance"><div class="video-grid" id="grid-finance"></div></div>
+  <div class="tab-pane" id="pane-personal"><div class="video-grid" id="grid-personal"></div></div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stat reveal s1">
+    <div class="stat-num" id="stat1-num">7<sup>+</sup></div>
+    <div class="stat-label" id="stat1-label">Brands Worked With</div>
+    <div class="stat-desc" id="stat1-desc">Across tech, study, and finance niches</div>
+  </div>
+  <div class="stat reveal s2">
+    <div class="stat-num" id="stat2-num">48<sup>hr</sup></div>
+    <div class="stat-label" id="stat2-label">Average Turnaround</div>
+    <div class="stat-desc" id="stat2-desc">Draft delivered within 48 hours of brief</div>
+  </div>
+  <div class="stat reveal s3">
+    <div class="stat-num" id="stat3-num">100<sup>%</sup></div>
+    <div class="stat-label" id="stat3-label">On-Brief Delivery</div>
+    <div class="stat-desc" id="stat3-desc">Every video delivered exactly as requested</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-side contact-side-left rr">
+      <div class="contact-photo-box" id="contact-photo-1">
+        <img src="https://i.imgur.com/3u92QZq.jpeg" alt="">
+      </div>
+    </div>
+
+    <div class="contact-center rl">
+      <span class="eyebrow">Contact</span>
+      <h2 class="contact-title">Let's build<br><em>something.</em></h2>
+      <p class="contact-desc" id="contact-desc">Got a product your audience needs to see? I create content that feels real and actually converts. Let's make it happen.</p>
+
+      <div class="contact-options">
+        <a href="mailto:radenali.ugc@gmail.com" class="contact-option">
+          <div class="contact-option-icon"><svg><use href="#icon-email"/></svg></div>
+          <div class="contact-option-text">
+            <strong>Email Me</strong>
+            <span id="contact-email">radenali.ugc@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://instagram.com/itsradenali" target="_blank" class="contact-option">
+          <div class="contact-option-icon"><svg><use href="#icon-instagram"/></svg></div>
+          <div class="contact-option-text">
+            <strong>Instagram</strong>
+            <span>@itsradenali</span>
+          </div>
+        </a>
+        <a href="https://tiktok.com/@itsradenali" target="_blank" class="contact-option">
+          <div class="contact-option-icon"><svg><use href="#icon-tiktok"/></svg></div>
+          <div class="contact-option-text">
+            <strong>TikTok</strong>
+            <span>@itsradenali</span>
+          </div>
+        </a>
+        <a id="calendly-option" href="https://calendly.com/radenali-ugc/ugc-call-raden-ali" target="_blank" class="contact-option">
+          <div class="contact-option-icon"><svg><use href="#icon-calendar"/></svg></div>
+          <div class="contact-option-text">
+            <strong>Book a Call</strong>
+            <span>15-min intro call</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="contact-cta-wrap">
+        <a id="calendly-btn" href="https://calendly.com/radenali-ugc/ugc-call-raden-ali" target="_blank" class="btn-primary" style="display:inline-block;width:fit-content">Schedule a Discovery Call</a>
+        <span class="contact-cta-sub">Usually responds within 24 hours.</span>
+      </div>
+    </div>
+
+    <div class="contact-side contact-side-right rl">
+      <div class="contact-photo-box" id="contact-photo-2">
+        <img src="https://i.imgur.com/qde0bJc.jpeg" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Raden Ali. All rights reserved.</span>
+  <button class="admin-trigger" onclick="openAdmin()">⚙ Admin</button>
+  <a href="mailto:radenali.ugc@gmail.com">radenali.ugc@gmail.com</a>
+</footer>
+
+<!-- VIDEO LIGHTBOX -->
+<div id="video-lightbox" onclick="if(event.target===this)closeVideoPlayer()">
+  <button onclick="closeVideoPlayer()">✕</button>
+  <video id="lb-video" controls playsinline style="display:none"></video>
+  <iframe id="lb-iframe"
+    style="display:none; width:min(400px,92vw); height:min(711px,88vh); border:none; border-radius:16px; box-shadow:0 32px 80px rgba(0,0,0,.6);"
+    allow="autoplay; fullscreen; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-overlay" onclick="overlayClose(event)">
+  <div id="admin-panel">
+    <div class="admin-header">
+      <h2>Admin Panel <span>✦</span></h2>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="admin-body">
+      <p class="admin-note">✏️ Edit anything here. Hit <strong>Apply Changes</strong> to update live. Hit <strong>Save & Export</strong> to download the final file.</p>
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="aTab('general',this)">General</button>
+        <button class="admin-tab" onclick="aTab('brands',this)">Brands</button>
+        <button class="admin-tab" onclick="aTab('videos',this)">Videos</button>
+        <button class="admin-tab" onclick="aTab('stats',this)">Stats</button>
+        <button class="admin-tab" onclick="aTab('photos',this)">Photos</button>
+      </div>
+
+      <div class="admin-section active" id="as-general">
+        <div class="section-divider">Hero</div>
+        <div class="admin-group"><label>Eyebrow Tag</label><input id="a-eyebrow" value="UGC Creator · Short-Form Content"></div>
+        <div class="admin-group"><label>Hero Sub-headline</label><textarea id="a-sub">Hi, I'm Raden Ali — a content creator based in San Diego, CA. I partner with brands to produce short-form videos that feel real, move product, and actually perform.</textarea></div>
+        <div class="section-divider">About</div>
+        <div class="admin-group"><label>About Paragraph 1</label><textarea id="a-about1">I'm a 17-year-old Indonesian-Mexican Gen-Z creator based in San Diego, CA. I partner with brands to make short-form content that actually performs — built for audiences that are students, builders, and digital natives.</textarea></div>
+        <div class="admin-group"><label>About Paragraph 2</label><textarea id="a-about2">No fluff, no stock footage. Just real content from someone who genuinely uses these products.</textarea></div>
+        <div class="section-divider">Contact</div>
+        <div class="admin-row">
+          <div class="admin-group"><label>Email</label><input id="a-email" value="radenali.ugc@gmail.com"></div>
+          <div class="admin-group"><label>Calendly Link</label><input id="a-calendly" value="https://calendly.com/radenali-ugc/ugc-call-raden-ali"></div>
+        </div>
+        <div class="admin-group"><label>Contact Description</label><textarea id="a-contactdesc">Got a product your audience needs to see? I create content that feels real and actually converts. Let's make it happen.</textarea></div>
+      </div>
+
+      <div class="admin-section" id="as-brands">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:.5rem;">Paste logo image URLs. Check "Featured" for big brands to highlight them (like Solvely AI).</p>
+        <div id="brand-editor"></div>
+      </div>
+
+      <div class="admin-section" id="as-videos">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:.5rem;background:rgba(245,158,11,.07);padding:.7rem 1rem;border-radius:8px;border-left:3px solid var(--amber);line-height:1.6;">✅ <strong>Recommended:</strong> Upload to <strong>streamable.com</strong> → copy the link (e.g. <em>https://streamable.com/bj608h</em>) → paste below. Video plays inline, no new tab.<br>⚠️ YouTube Shorts links won't embed — use Streamable instead.</p>
+        <div id="video-editor"></div>
+      </div>
+
+      <div class="admin-section" id="as-stats">
+        <div class="admin-row-3">
+          <div>
+            <div class="admin-group"><label>Stat 1 Number</label><input id="a-s1n" value="6+"></div>
+            <div class="admin-group"><label>Stat 1 Label</label><input id="a-s1l" value="Brands Worked With"></div>
+            <div class="admin-group"><label>Stat 1 Description</label><input id="a-s1d" value="Across tech, study, and finance niches"></div>
+          </div>
+          <div>
+            <div class="admin-group"><label>Stat 2 Number</label><input id="a-s2n" value="48hr"></div>
+            <div class="admin-group"><label>Stat 2 Label</label><input id="a-s2l" value="Average Turnaround"></div>
+            <div class="admin-group"><label>Stat 2 Description</label><input id="a-s2d" value="Draft delivered within 48 hours of brief"></div>
+          </div>
+          <div>
+            <div class="admin-group"><label>Stat 3 Number</label><input id="a-s3n" value="100%"></div>
+            <div class="admin-group"><label>Stat 3 Label</label><input id="a-s3l" value="On-Brief Delivery"></div>
+            <div class="admin-group"><label>Stat 3 Description</label><input id="a-s3d" value="Every video delivered exactly as requested"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-section" id="as-photos">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;">Upload to <strong>imgur.com</strong> → right-click → "Copy image address" → paste below.</p>
+        <div class="admin-group"><label>Hero Photo URL</label><input id="a-hero-photo" value="https://i.imgur.com/TKSqTEZ.jpeg" placeholder="https://i.imgur.com/TKSqTEZ.jpeg"></div>
+        <div class="admin-group"><label>About Circle Photo URL</label><input id="a-about-photo" value="https://i.imgur.com/Ziu9Tdo.jpeg" placeholder="https://i.imgur.com/Ziu9Tdo.jpeg"></div>
+        <div class="admin-row">
+          <div class="admin-group"><label>Contact Photo 1 URL</label><input id="a-cp1" value="https://i.imgur.com/3u92QZq.jpeg" placeholder="https://i.imgur.com/3u92QZq.jpeg"></div>
+          <div class="admin-group"><label>Contact Photo 2 URL</label><input id="a-cp2" value="https://i.imgur.com/qde0bJc.jpeg" placeholder="https://i.imgur.com/qde0bJc.jpeg"></div>
+        </div>
+      </div>
+    </div>
+    <div class="admin-footer">
+      <button class="btn-admin-export" onclick="exportHTML()">💾 Save & Export HTML</button>
+      <button class="btn-admin-apply" onclick="applyChanges()">✓ Apply Changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const BRANDS = [
+  { name:'CodeRabbit',  initials:'CR', logo:'https://imgs.search.brave.com/LrsWnI0UCF6nmRdV_1GI25zE10bnewvQa7slVgTDdio/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly92aWN0/b3Jpb3VzLWJ1YmJs/ZS1mNjlhMDE2Njgz/Lm1lZGlhLnN0cmFw/aWFwcC5jb20vT3Jh/bmdlX0xvZ29tYXJr/XzFiYjA5MWIzNTUu/c3Zn', featured:false },
+  { name:'Knowunity',   initials:'KN', logo:'https://imgs.search.brave.com/k4atkFZzuwd1CercvWAS2lTB_BjM3V8upGqBj9moAPw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/MS53ZWJjYXRhbG9n/LmlvL2NhdGFsb2cv/a25vd3VuaXR5L2tu/b3d1bml0eS1pY29u/LWZpbGxlZC0yNTYu/cG5nP3Y9MTc3NDIy/NjIyODMzMA', featured:false },
+  { name:'CounterAI',   initials:'CA', logo:'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d5/fa/8d/d5fa8d83-ce33-3518-7a80-72ea9e7b8b35/Placeholder.mill/200x200bb-75.webp', featured:false },
+  { name:'Luel',        initials:'LU', logo:'https://imgs.search.brave.com/keJvHG-pcxoGBptISmLpkYMxZVMdfp-3JYuBI05_ciY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bHVlbC5haS9sdWVs/LWxvZ28uc3ZnP2Rw/bD1kcGxfREh5MUs1/RVBHNDVVdG9jd1FY/Y3dYUFVTSDhEZg', featured:false },
+  { name:'Tradevisor',  initials:'TR', logo:'https://tradevisorai.com/assets/ChatGPT%20Image%20Jul%2019_%202025_%2004_26_42%20PM-M1SM0lq7.png', featured:false },
+  { name:'Solvely AI',  initials:'SA', logo:'https://imgs.search.brave.com/FD-KjqnjRzzdo_Gwu9VyCgGWkUOeTwf5HL2MFkbUo7Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Z0Y2RuLm5l/dC9pbWFnZXMvdF9h/cHAtaWNvbi1zL3Av/MjI3MzhmMGQtZTg1/Yi00MzI5LThiYzct/NTZiOWU3ZDYyNGM1/LzY2MzQwOTcyNi9z/b2x2ZWx5LWFpLW1h/dGgtc29sdmVyLWxv/Z28', featured:true  },
+];
+
+const VIDEOS = {
+  tech:[
+    { brand:'CodeRabbit', tag:'AI Code Reviewer', url:'https://streamable.com/2f35ei', fileData:'' },
+    { brand:'CodeRabbit', tag:'AI Code Reviewer', url:'https://streamable.com/iibxgw', fileData:'' },
+    { brand:'Codedex', tag:'Coding Learning Platform', url:'https://streamable.com/36r49r', fileData:'' },
+    { brand:'CodeRabbit', tag:'AI Code Reviewer', url:'https://streamable.com/bj608h', fileData:'' },
+  ],
+  study:[
+    { brand:'Knowunity',  tag:'AI Study App', url:'https://streamable.com/9aweht', fileData:'' },
+    { brand:'Knowunity',  tag:'AI Study App', url:'https://streamable.com/wi82p4', fileData:'' },
+    { brand:'Solvely AI', tag:'AI Study App', url:'https://streamable.com/qcwqwr', fileData:'' },
+    { brand:'Knowunity',  tag:'AI Study App', url:'https://streamable.com/3xiwye', fileData:'' },
+  ],
+  finance:[
+    { brand:'Luel',       tag:'Finance App',     url:'https://streamable.com/a0n7qm', fileData:'' },
+    { brand:'Tradevisor', tag:'AI Trading Tool', url:'https://streamable.com/crnjhc', fileData:'' },
+    { brand:'Luel',       tag:'Finance App',     url:'https://streamable.com/kn19h0', fileData:'' },
+    { brand:'Tradevisor', tag:'AI Trading Tool', url:'https://streamable.com/5vzfl2', fileData:'' },
+  ],
+  personal:[
+    { brand:'$10k Before Graduation', tag:'Series / Journey', url:'https://streamable.com/umccf0', fileData:'' },
+    { brand:'$1k Under 100 Followers', tag:'Educational', url:'https://streamable.com/lv0i7e', fileData:'' },
+    { brand:'Locking in.', tag:'Personal Journey', url:'https://streamable.com/6y4jfu', fileData:'' },
+    { brand:'How to land Brand Deals', tag:'Educational', url:'https://streamable.com/p9o453', fileData:'' },
+  ],
+};
+
+// ── RENDER MARQUEE ──
+function renderMarquee() {
+  const track = document.getElementById('marquee-track');
+  // Build one set, duplicate 4x for seamless loop
+  const items = BRANDS.map(b => {
+    const chipInner = b.logo
+      ? `<img src="${b.logo}" alt="${b.name}" onerror="this.parentElement.innerHTML='<span>${b.initials}</span>'">`
+      : `<span>${b.initials}</span>`;
+    const chip = `<div class="m-chip">${chipInner}</div>`;
+    const pill = b.featured ? `<span class="featured-pill">Featured</span>` : '';
+    return `<div class="marquee-item${b.featured?' is-featured':''}">${chip}${b.name}${pill}</div>`;
+  }).join('');
+  track.innerHTML = items.repeat(4);
+}
+
+// kept for admin compat — no-op now
+function renderBrandsGrid() {}
+
+// ── URL HELPERS ──
+function getStreamableId(url) {
+  if (!url) return null;
+  const match = url.match(/streamable\.com\/(?:e\/)?([a-zA-Z0-9]+)/);
+  return match ? match[1] : null;
+}
+
+function getYouTubeId(url) {
+  if (!url) return null;
+  // Only regular YouTube — NOT Shorts (Shorts block embedding)
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : null;
+}
+
+// ── RENDER VIDEO CARDS ──
+function renderVideoCard(v) {
+  const streamId = getStreamableId(v.url);
+  const ytId     = getYouTubeId(v.url);
+  let thumb;
+
+  if (v.fileData) {
+    // Local uploaded file
+    thumb = `
+      <div class="video-thumb video-has-file" onclick="openVideoPlayer(this)">
+        <video class="video-preview" src="${v.fileData}" muted playsinline preload="metadata"></video>
+        <div class="video-play-overlay"><div class="play-btn">▶</div></div>
+      </div>`;
+
+  } else if (streamId) {
+    // Streamable — real thumbnail from their CDN, plays inline on click
+    thumb = `
+      <div class="video-thumb yt-embed-wrap" onclick="openIframe('https://streamable.com/e/${streamId}?autoplay=1')" style="padding:0;border-style:solid;">
+        <img class="yt-thumb"
+          src="https://cdn-cf-east.streamable.com/image/${streamId}.jpg"
+          onerror="this.onerror=null;this.src='https://cdn-cf-east.streamable.com/image/${streamId}.png'"
+          alt="Video preview" loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="video-play-overlay">
+          <div class="play-btn yt-play">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      </div>`;
+
+  } else if (ytId) {
+    // Regular YouTube (not Shorts)
+    thumb = `
+      <div class="video-thumb yt-embed-wrap" onclick="openIframe('https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0')">
+        <img class="yt-thumb" src="https://i.ytimg.com/vi/${ytId}/hqdefault.jpg"
+             onerror="this.src='https://i.ytimg.com/vi/${ytId}/mqdefault.jpg'"
+             alt="Video thumbnail" loading="lazy">
+        <div class="video-play-overlay">
+          <div class="play-btn yt-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>`;
+
+  } else if (v.url) {
+    // Fallback — opens in new tab (TikTok etc.)
+    thumb = `<a class="video-thumb" href="${v.url}" target="_blank"><div class="play-btn">▶</div><span>Watch Video</span></a>`;
+
+  } else {
+    thumb = `<div class="video-thumb"><div class="play-btn">▶</div><span>Add via admin</span></div>`;
+  }
+
+  return `<div class="video-card">${thumb}<div class="video-name">${v.brand}</div><span class="video-tag">${v.tag}</span></div>`;
+}
+function renderAllGrids() {
+  ['tech','study','finance','personal'].forEach(t => {
+    document.getElementById('grid-'+t).innerHTML = VIDEOS[t].map(renderVideoCard).join('');
+  });
+}
+
+// ── VIDEO PLAYER (local files) ──
+function openVideoPlayer(el) {
+  const v = el.querySelector('video');
+  const vid = document.getElementById('lb-video');
+  const ifr = document.getElementById('lb-iframe');
+  vid.src = v.src;
+  vid.style.display = 'block';
+  ifr.style.display = 'none';
+  ifr.src = '';
+  vid.play();
+  document.getElementById('video-lightbox').classList.add('open');
+}
+
+// ── IFRAME PLAYER (Streamable + YouTube) ──
+function openIframe(src) {
+  const vid = document.getElementById('lb-video');
+  const ifr = document.getElementById('lb-iframe');
+  vid.pause();
+  vid.style.display = 'none';
+  ifr.src = src;
+  ifr.style.display = 'block';
+  document.getElementById('video-lightbox').classList.add('open');
+}
+
+function closeVideoPlayer() {
+  document.getElementById('lb-video').pause();
+  document.getElementById('lb-video').src = '';
+  document.getElementById('lb-iframe').src = '';
+  document.getElementById('video-lightbox').classList.remove('open');
+}
+
+// ── VIDEO FILE UPLOAD ──
+function handleVideoUpload(event, tab, index) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const card = event.target.closest('.video-admin-card');
+  let statusEl = card.querySelector('.upload-status');
+  if (!statusEl) { statusEl = document.createElement('div'); statusEl.className = 'upload-status'; card.appendChild(statusEl); }
+  statusEl.style.cssText = 'font-size:.72rem;color:var(--amber);font-weight:600;margin-top:.4rem;';
+  statusEl.textContent = '⏳ Loading video...';
+  const reader = new FileReader();
+  reader.onload = e => {
+    VIDEOS[tab][index].fileData = e.target.result;
+    VIDEOS[tab][index].url = '';
+    const urlInput = document.getElementById(`vu-${tab}-${index}`);
+    if (urlInput) urlInput.value = '';
+    renderAllGrids();
+    statusEl.style.color = '#22c55e';
+    statusEl.textContent = `✓ "${file.name}" loaded`;
+  };
+  reader.onerror = () => { statusEl.style.color = '#ef4444'; statusEl.textContent = '✗ Error — try a smaller file'; };
+  reader.readAsDataURL(file);
+}
+
+// ── TABS ──
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── ADMIN ──
+function openAdmin() {
+  const pw = prompt('Enter admin password:');
+  if (pw === 'raden2026ugc') {
+    buildBrandEditor(); buildVideoEditor();
+    document.getElementById('admin-overlay').classList.add('open');
+  } else if (pw !== null) { alert('Incorrect password.'); }
+}
+function closeAdmin() { document.getElementById('admin-overlay').classList.remove('open'); }
+function overlayClose(e) { if (e.target.id === 'admin-overlay') closeAdmin(); }
+function aTab(id, btn) {
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('as-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildBrandEditor() {
+  document.getElementById('brand-editor').innerHTML = BRANDS.map((b, i) => {
+    const preview = b.logo
+      ? `<div class="admin-brand-preview"><img src="${b.logo}" alt="${b.name}" style="width:100%;height:100%;object-fit:contain;padding:4px"></div>`
+      : `<div class="admin-brand-preview" id="bp-${i}">${b.initials}</div>`;
+    return `
+      <div class="admin-brand-row">
+        ${preview}
+        <div class="admin-brand-inputs">
+          <label style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">Brand Name</label>
+          <input value="${b.name}" onchange="BRANDS[${i}].name=this.value" style="padding:.45rem .7rem;border-radius:7px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.84rem;outline:none;width:100%">
+          <label style="display:flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:600;color:var(--muted);cursor:pointer;margin-top:.2rem">
+            <input type="checkbox" ${b.featured?'checked':''} onchange="BRANDS[${i}].featured=this.checked" style="width:auto;accent-color:var(--amber)"> Featured brand
+          </label>
+        </div>
+        <div class="admin-brand-inputs">
+          <label style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">Logo URL</label>
+          <input value="${b.logo}" placeholder="https://..." oninput="previewLogo(${i},this.value)" style="padding:.45rem .7rem;border-radius:7px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.84rem;outline:none;width:100%">
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function previewLogo(i, url) {
+  BRANDS[i].logo = url;
+  const el = document.getElementById('bp-'+i);
+  if (el) el.innerHTML = url ? `<img src="${url}" alt="" style="width:100%;height:100%;object-fit:contain;padding:4px">` : BRANDS[i].initials;
+}
+
+function buildVideoEditor() {
+  const tabs = ['tech','study','finance','personal'];
+  const labels = { tech:'Tech & AI', study:'Study Apps', finance:'Finance', personal:'Personal Brand' };
+  document.getElementById('video-editor').innerHTML = tabs.map(tab =>
+    `<div class="section-divider">${labels[tab]}</div>` +
+    VIDEOS[tab].map((v, i) => `
+      <div class="video-admin-card">
+        <div class="va-row">
+          <div><label>Brand / Title</label><input id="vn-${tab}-${i}" value="${v.brand}" onchange="VIDEOS['${tab}'][${i}].brand=this.value"></div>
+          <div><label>Tag / Type</label><input id="vt-${tab}-${i}" value="${v.tag}" onchange="VIDEOS['${tab}'][${i}].tag=this.value"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:end">
+          <div>
+            <label>YouTube / Streamable / TikTok URL</label>
+            <input id="vu-${tab}-${i}" value="${v.url}" placeholder="https://youtu.be/..." onchange="VIDEOS['${tab}'][${i}].url=this.value;VIDEOS['${tab}'][${i}].fileData='';renderAllGrids()">
+          </div>
+          <div>
+            <label style="white-space:nowrap">Or Upload File</label>
+            <label style="display:inline-flex;align-items:center;gap:.35rem;cursor:pointer;background:var(--amber);color:var(--text);font-weight:700;font-size:.75rem;padding:.45rem .85rem;border-radius:999px;white-space:nowrap">
+              📁 Choose
+              <input type="file" accept="video/*" style="display:none" onchange="handleVideoUpload(event,'${tab}',${i})">
+            </label>
+          </div>
+        </div>
+        ${v.fileData ? '<div class="upload-status" style="font-size:.72rem;color:#22c55e;font-weight:600;margin-top:.4rem">✓ File loaded</div>' : ''}
+      </div>`).join('')
+  ).join('');
+}
+
+function applyChanges() {
+  document.getElementById('hero-eyebrow').textContent = document.getElementById('a-eyebrow').value;
+  document.getElementById('hero-sub').textContent = document.getElementById('a-sub').value;
+  document.getElementById('about-p1').textContent = document.getElementById('a-about1').value;
+  document.getElementById('about-p2').textContent = document.getElementById('a-about2').value;
+  document.getElementById('contact-desc').textContent = document.getElementById('a-contactdesc').value;
+  document.getElementById('contact-email').textContent = document.getElementById('a-email').value;
+  const cal = document.getElementById('a-calendly').value;
+  document.getElementById('calendly-btn').href = cal;
+  document.getElementById('calendly-option').href = cal;
+  document.getElementById('nav-cta').href = cal;
+  ['1','2','3'].forEach(n => {
+    document.getElementById('stat'+n+'-num').innerHTML = document.getElementById('a-s'+n+'n').value;
+    document.getElementById('stat'+n+'-label').textContent = document.getElementById('a-s'+n+'l').value;
+    document.getElementById('stat'+n+'-desc').textContent = document.getElementById('a-s'+n+'d').value;
+  });
+  const hp = document.getElementById('a-hero-photo').value.trim();
+  if (hp) document.getElementById('hero-photo-wrap').innerHTML = `<img src="${hp}" style="width:100%;height:100%;object-fit:cover">`;
+  const ap = document.getElementById('a-about-photo').value.trim();
+  if (ap) document.getElementById('about-circle-wrap').innerHTML = `<img src="${ap}">`;
+  const cp1 = document.getElementById('a-cp1').value.trim();
+  if (cp1) document.getElementById('contact-photo-1').innerHTML = `<img src="${cp1}">`;
+  const cp2 = document.getElementById('a-cp2').value.trim();
+  if (cp2) document.getElementById('contact-photo-2').innerHTML = `<img src="${cp2}">`;
+  renderBrandsGrid(); renderMarquee(); renderAllGrids();
+  closeAdmin();
+  const fb = document.createElement('div');
+  fb.textContent = '✓ Changes applied!';
+  fb.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--amber);color:#111;font-weight:700;padding:.6rem 1.5rem;border-radius:999px;z-index:99999;font-family:DM Sans,sans-serif;font-size:.88rem;box-shadow:0 4px 20px rgba(0,0,0,.15);';
+  document.body.appendChild(fb);
+  setTimeout(() => fb.remove(), 2500);
+}
+
+function exportHTML() {
+  applyChanges();
+  setTimeout(() => {
+    const blob = new Blob(['<!DOCTYPE html>\n'+document.documentElement.outerHTML], {type:'text/html'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'radenali-portfolio.html';
+    a.click();
+  }, 150);
+}
+
+// ── SCROLL REVEAL ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold:0.08 });
+document.querySelectorAll('.reveal,.rl,.rr').forEach(el => io.observe(el));
+
+// ── INIT ──
+renderBrandsGrid();
+renderMarquee();
+renderAllGrids();
+</script>
+</body>
+</html>
